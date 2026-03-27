@@ -1,0 +1,46 @@
+# Dependencies
+node_modules/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs
+*.log
+
+# Build outputs
+.next/
+out/
+build/
+dist/
+.nuxt/
+.cache/
+.parcel-cache/
+
+# Environment variables
+.env
+.env.*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+
+# Coverage
+coverage/
+.nyc_output/
+
+# Misc
+*.tgz
+.eslintcache
+.node_repl_history

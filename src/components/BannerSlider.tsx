@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 type Slide = {
   id: string;
@@ -14,34 +15,36 @@ type Slide = {
 };
 
 export function BannerSlider() {
+  const { t } = useLanguage();
+  
   const slides: Slide[] = useMemo(
     () => [
       {
         id: "coffee",
         imageSrc:
           "https://images.unsplash.com/photo-1485808191679-5f86510681a2?auto=format&fit=crop&w=1600&q=80",
-        eyebrow: "Coffee",
-        title: "Espresso, crafted with care",
-        description: "Smooth crema, warm tones, and a menu that feels like home.",
+        eyebrow: t('banner.coffee.eyebrow'),
+        title: t('banner.coffee.title'),
+        description: t('banner.coffee.description'),
       },
       {
         id: "desserts",
         imageSrc:
           "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1600&q=80",
-        eyebrow: "Desserts",
-        title: "Sweet pairings for every sip",
-        description: "Freshly baked favorites with rich, comforting flavors.",
+        eyebrow: t('banner.desserts.eyebrow'),
+        title: t('banner.desserts.title'),
+        description: t('banner.desserts.description'),
       },
       {
         id: "drinks",
         imageSrc:
           "https://images.unsplash.com/photo-1544145945-f90425340c7e?auto=format&fit=crop&w=1600&q=80",
-        eyebrow: "Drinks",
-        title: "Cool refreshment, all day",
-        description: "From iced classics to cozy hot chocolate.",
+        eyebrow: t('banner.drinks.eyebrow'),
+        title: t('banner.drinks.title'),
+        description: t('banner.drinks.description'),
       },
     ],
-    [],
+    [t],
   );
 
   const [index, setIndex] = useState(0);
@@ -75,7 +78,7 @@ export function BannerSlider() {
       />
 
       {/* Dark overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#1f1a14]/70 via-[#1f1a14]/30 to-transparent" />
+      <div className="absolute inset-0 bg-linear-to-r from-[#1f1a14]/70 via-[#1f1a14]/30 to-transparent" />
 
       {/* Content pinned to bottom */}
       <div className="absolute inset-x-0 bottom-0 px-6 pb-10 sm:px-12 sm:pb-12 banner-slide-animation">
@@ -97,13 +100,13 @@ export function BannerSlider() {
               href="#coffee"
               className="rounded-full bg-[#1f1a14] px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-black/30 hover:bg-[#302a22] focus:outline-none focus:ring-2 focus:ring-[#c28a52]/60"
             >
-              View Menu
+              {t('nav.viewMenu')}
             </Link>
             <Link
               href="#order"
               className="rounded-full bg-[#391c02] px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-black/30 hover:bg-[#4f2f0b] focus:outline-none focus:ring-2 focus:ring-[#c28a52]/60"
             >
-              Order
+              {t('nav.order')}
             </Link>
           </div>
         </div>
@@ -116,7 +119,7 @@ export function BannerSlider() {
                 key={s.id}
                 type="button"
                 onClick={() => setIndex(i)}
-                aria-label={`Go to slide ${i + 1}`}
+                aria-label={`${t('banner.goToSlide')} ${i + 1}`}
                 className={`h-2 rounded-full transition-all duration-300 ${
                   i === index ? "w-6 bg-[#c28a52]" : "w-2 bg-white/40 hover:bg-white/60"
                 }`}
@@ -129,7 +132,7 @@ export function BannerSlider() {
               type="button"
               onClick={() => go(-1)}
               className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-sm hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-[#c28a52]/60"
-              aria-label="Previous"
+              aria-label={t('banner.previous')}
             >
               <ChevronLeft className="h-5 w-5" />
             </button>
@@ -137,7 +140,7 @@ export function BannerSlider() {
               type="button"
               onClick={() => go(1)}
               className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-sm hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-[#c28a52]/60"
-              aria-label="Next"
+              aria-label={t('banner.next')}
             >
               <ChevronRight className="h-5 w-5" />
             </button>

@@ -3,6 +3,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Camera, Copy, QrCode, X } from "lucide-react";
 import QRCode from "qrcode";
+import Image from "next/image";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 type Props = {
   open: boolean;
@@ -12,7 +14,8 @@ type Props = {
 type Tab = "generate" | "scan";
 
 export function QrModal({ open, onClose }: Props) {
-  const [tab, setTab] = useState<Tab>("generate");
+  const { t } = useLanguage();
+  const [tab] = useState<Tab>("generate");
   const [qrDataUrl, setQrDataUrl] = useState<string>("");
   const [copyState, setCopyState] = useState<"idle" | "copied">("idle");
   const scannerRef = useRef<null | { clear: () => void | Promise<void> }>(null);
@@ -91,7 +94,7 @@ export function QrModal({ open, onClose }: Props) {
       className="fixed inset-0 z-50 flex min-h-screen items-center justify-center bg-black/35 p-4 backdrop-blur-sm"
       role="dialog"
       aria-modal="true"
-      aria-label="QR code"
+      aria-label={t('qrModal.title')}
       onMouseDown={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
@@ -102,17 +105,17 @@ export function QrModal({ open, onClose }: Props) {
             <QrCode className="h-5 w-5 text-[#3a2f27]" />
             <div>
               <p className="text-sm font-semibold text-[#1f1a14]">
-                QR code
+                {t('qrModal.title')}
               </p>
               <p className="text-xs text-[#6b5b4f]">
-                Share or scan this page
+                {t('qrModal.subtitle')}
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
             className="rounded-full p-2 text-[#3a2f27] hover:bg-black/5 focus:outline-none focus:ring-2 focus:ring-[#c28a52]/60"
-            aria-label="Close"
+            aria-label={t('qrModal.close')}
           >
             <X className="h-5 w-5" />
           </button>
@@ -126,10 +129,12 @@ export function QrModal({ open, onClose }: Props) {
               <div className="grid place-items-center rounded-2xl bg-white p-4">
                 {/* Using an <img> because the data URL is generated client-side. */}
                 {qrDataUrl ? (
-                  <img
+                  <Image
                     src={qrDataUrl}
-                    alt="QR code linking to this page"
+                    alt={t('qrModal.qrAlt')}
                     className="mx-auto h-64 w-64"
+                    width={256}
+                    height={256}
                   />
                 ) : (
                   <div className="h-64 w-64 animate-pulse rounded-xl bg-black/5" />
@@ -146,7 +151,7 @@ export function QrModal({ open, onClose }: Props) {
                     className="inline-flex items-center justify-center gap-2 rounded-full border border-black/10 bg-white px-4 py-2 text-sm font-semibold text-[#1f1a14] hover:bg-black/5 focus:outline-none focus:ring-2 focus:ring-[#c28a52]/60"
                   >
                     <Copy className="h-4 w-4" />
-                    {copyState === "copied" ? "Copied" : "Copy link"}
+                    {copyState === "copied" ? t('qrModal.copied') : t('qrModal.copyLink')}
                   </button>
                 </div>
               </div>
@@ -154,7 +159,7 @@ export function QrModal({ open, onClose }: Props) {
           ) : (
             <div className="grid gap-3">
               <p className="text-sm text-[#5b4b3f]">
-                Use your camera to scan a QR code. If it contains a URL, we’ll open it.
+                {t('qrModal.scanInstructions')}
               </p>
 
               <div className="rounded-2xl bg-white p-3">
@@ -166,11 +171,11 @@ export function QrModal({ open, onClose }: Props) {
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-[#1f1a14] px-4 py-2 text-sm font-semibold text-[#fbf7f0] hover:bg-[#2a231c] focus:outline-none focus:ring-2 focus:ring-[#c28a52]/60 focus:ring-offset-2 focus:ring-offset-[#fbf7f0]"
               >
                 <Camera className="h-4 w-4" />
-                Start camera
+                {t('qrModal.startCamera')}
               </button>
 
               <p className="text-xs text-[#6b5b4f]">
-                Tip: On desktop, scanning depends on available camera permissions.
+                {t('qrModal.cameraTip')}
               </p>
             </div>
           )}
