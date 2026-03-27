@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 700" role="img" aria-label="Drinks banner">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1f1a14" stop-opacity="0.95"/>
+      <stop offset="0.45" stop-color="#6b4b2c" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#f0d9b9" stop-opacity="0.65"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="70%" cy="20%" r="70%">
+      <stop offset="0" stop-color="#c28a52" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#c28a52" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="700" fill="url(#bg)"/>
+  <rect width="1600" height="700" fill="url(#glow)"/>
+
+  <!-- bubbles -->
+  <g fill="#fbf7f0" opacity="0.18">
+    <circle cx="220" cy="260" r="18"/>
+    <circle cx="300" cy="310" r="10"/>
+    <circle cx="520" cy="220" r="22"/>
+    <circle cx="720" cy="310" r="14"/>
+    <circle cx="1210" cy="260" r="18"/>
+    <circle cx="1380" cy="330" r="12"/>
+    <circle cx="1060" cy="220" r="20"/>
+  </g>
+
+  <!-- glass silhouette -->
+  <g transform="translate(560,120)" opacity="0.95">
+    <path d="M210 90h260l-35 280c-8 70-65 125-135 125s-127-55-135-125L210 90z" fill="#fbf7f0" opacity="0.85"/>
+    <path d="M210 90h260l-25 210c-10 60-56 105-115 105s-105-45-115-105L210 90z" fill="#c28a52" opacity="0.18"/>
+    <path d="M470 40c40 55 50 95 30 125-18 28-45 46-70 60l-18-20c18-11 37-25 51-44 10-14 12-36-26-101l33-20z" fill="#fbf7f0" opacity="0.55"/>
+    <circle cx="340" cy="320" r="52" fill="#fbf7f0" opacity="0.28"/>
+    <circle cx="340" cy="320" r="30" fill="#c28a52" opacity="0.28"/>
+  </g>
+</svg>
+

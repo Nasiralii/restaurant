@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- duplicate of /public/menu/desserts.svg for simpler path -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="Desserts menu image">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff1e0"/>
+      <stop offset="0.55" stop-color="#f3d2b8"/>
+      <stop offset="1" stop-color="#c28a52"/>
+    </linearGradient>
+    <filter id="s" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#1f1a14" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+  <rect width="800" height="600" fill="url(#g)"/>
+  <g opacity="0.15">
+    <circle cx="140" cy="520" r="130" fill="#1f1a14"/>
+    <circle cx="700" cy="130" r="110" fill="#1f1a14"/>
+  </g>
+  <g filter="url(#s)">
+    <ellipse cx="400" cy="420" rx="200" ry="55" fill="#fbf7f0" opacity="0.95"/>
+    <path d="M300 420c0-75 45-140 100-140s100 65 100 140v40c0 20-15 35-35 35H335c-20 0-35-15-35-35v-40z" fill="#fbf7f0"/>
+    <path d="M300 420c20-95 80-145 100-145s80 50 100 145c-25 15-64 22-100 22s-75-7-100-22z" fill="#c28a52" opacity="0.22"/>
+    <path d="M330 350c0-30 20-55 45-55 14 0 26 7 35 18-14 5-24 18-24 33 0 20 16 36 36 36 15 0 28-10 33-24 9 10 16 23 16 41 0 34-30 62-67 62s-68-28-68-62z" fill="#1f1a14" opacity="0.08"/>
+    <g fill="#1f1a14" opacity="0.12">
+      <circle cx="360" cy="380" r="10"/>
+      <circle cx="400" cy="365" r="12"/>
+      <circle cx="445" cy="385" r="9"/>
+      <circle cx="420" cy="408" r="8"/>
+    </g>
+  </g>
+  <text x="400" y="545" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="44" font-weight="700" fill="#1f1a14" opacity="0.9">Brew & Bite</text>
+  <text x="400" y="510" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="600" fill="#5b4b3f">Desserts</text>
+</svg>
+

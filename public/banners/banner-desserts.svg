@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 700" role="img" aria-label="Desserts banner">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1f1a14" stop-opacity="0.95"/>
+      <stop offset="0.45" stop-color="#8a5a34" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#d8a06e" stop-opacity="0.7"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="70%" cy="20%" r="70%">
+      <stop offset="0" stop-color="#c28a52" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#c28a52" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="700" fill="url(#bg)"/>
+  <rect width="1600" height="700" fill="url(#glow)"/>
+
+  <!-- sprinkles -->
+  <g opacity="0.25" stroke="#fbf7f0" stroke-width="6" stroke-linecap="round">
+    <path d="M210 190l80 0" />
+    <path d="M300 210l60 -40" />
+    <path d="M260 260l100 -10" />
+    <path d="M1240 520l70 -20" />
+    <path d="M1330 560l90 10" />
+    <path d="M1200 580l60 60" />
+  </g>
+
+  <!-- cake silhouette -->
+  <g transform="translate(510,110)" opacity="0.95">
+    <ellipse cx="290" cy="440" rx="260" ry="70" fill="#fbf7f0" opacity="0.18"/>
+    <path d="M110 420c0-120 80-250 180-250s180 130 180 250v60c0 25-20 45-45 45H155c-25 0-45-20-45-45v-60z" fill="#fbf7f0" opacity="0.75"/>
+    <path d="M110 420c40-130 125-220 180-220s140 90 180 220c-60 40-130 55-180 55s-120-15-180-55z" fill="#c28a52" opacity="0.18"/>
+    <rect x="155" y="320" width="270" height="40" rx="20" fill="#1f1a14" opacity="0.12"/>
+  </g>
+</svg>
+
