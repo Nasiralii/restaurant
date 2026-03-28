@@ -6,17 +6,28 @@ import { useLanguage } from "@/contexts/LanguageContext";
 export function LanguageToggle() {
   const { language, setLanguage } = useLanguage();
 
-  const toggleLanguage = () => {
-    setLanguage(language === 'ar' ? 'en' : 'ar');
-  };
-
   return (
     <button
-      onClick={toggleLanguage}
-      className={`flex items-center gap-2 rounded-full border border-black/10 bg-white/70 px-3 py-2 text-sm font-semibold text-[#3a2f27] hover:bg-[#c28a52] hover:text-white hover:border-[#c28a52] transition`}
+      onClick={() => setLanguage(language === "ar" ? "en" : "ar")}
+      className="flex items-center gap-2 rounded-full px-3 py-2 text-sm font-semibold transition-all duration-200"
+      style={{
+        background: "var(--bg-elevated)",
+        border: "1px solid var(--border-medium)",
+        color: "var(--text-secondary)",
+      }}
+      onMouseEnter={e => {
+        (e.currentTarget as HTMLButtonElement).style.background = "var(--bg-muted)";
+        (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--border-accent)";
+        (e.currentTarget as HTMLButtonElement).style.color = "var(--amber-600)";
+      }}
+      onMouseLeave={e => {
+        (e.currentTarget as HTMLButtonElement).style.background = "var(--bg-elevated)";
+        (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--border-medium)";
+        (e.currentTarget as HTMLButtonElement).style.color = "var(--text-secondary)";
+      }}
     >
       <Languages className="h-4 w-4" />
-      <span>{language === 'ar' ? 'EN' : 'العربية'}</span>
+      <span>{language === "ar" ? "EN" : "العربية"}</span>
     </button>
   );
 }

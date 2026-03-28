@@ -24,9 +24,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   };
 
   const t = (path: string): string => {
-    const value = getNestedValue(translations[language], path);
-    console.log('Language:', language, 'Path:', path, 'Value:', value);
-    return value;
+    return getNestedValue(translations[language], path);
   };
 
   const isRTL = language === 'ar';

@@ -1,25 +1,83 @@
 @import "tailwindcss";
 
 :root {
-  /* Warm, cafe-ish palette (used via Tailwind arbitrary values too). */
-  --background: #fbf7f0; /* cream */
-  --foreground: #1f1a14; /* espresso */
+  /* ── Brew & Bite — Amber Brand Palette ───────────────────
+     Direction: Warm linen/parchment base, amber gold as the
+     hero accent woven through all surfaces.
+  ────────────────────────────────────────────────────────── */
+
+  /* Backgrounds — amber-tinted warmth */
+  --bg-base: #fdf8f1; /* warm linen — page base            */
+  --bg-surface: #ffffff; /* pure white — cards                */
+  --bg-elevated: #fef4e3; /* amber wash — inputs, lifted areas */
+  --bg-muted: #fde9c5; /* warm amber tint — hover/dividers  */
+  --bg-section: #fffbf5; /* barely-amber — section alternates */
+
+  /* Brand Amber */
+  --amber-50: #fff9ee;
+  --amber-100: #feedc7;
+  --amber-200: #fcd98a;
+  --amber-300: #f9b830;
+  --amber-400: #e8870a; /* primary brand CTA        */
+  --amber-500: #c96d00; /* hover / deeper accent    */
+  --amber-600: #9e5200; /* dark — text use          */
+
+  /* Warm Brown/Espresso tones */
+  --brown-100: #f0dcc0;
+  --brown-200: #d4a97a;
+  --brown-300: #a87040;
+  --brown-400: #6b3e1a;
+  --brown-500: #3d1f06;
+
+  /* Text */
+  --text-primary: #2d1a08; /* deep espresso brown           */
+  --text-secondary: #6b3e1a; /* warm roasted brown            */
+  --text-muted: #a8773d; /* caramel — labels/captions     */
+  --text-inverse: #ffffff; /* on amber buttons              */
+
+  /* Borders */
+  --border-subtle: rgba(168, 119, 61, 0.13);
+  --border-medium: rgba(168, 119, 61, 0.24);
+  --border-accent: rgba(232, 135, 10, 0.38);
+  --border-strong: rgba(232, 135, 10, 0.6);
+
+  /* Shadows */
+  --shadow-card: 0 2px 14px rgba(107, 62, 26, 0.08);
+  --shadow-lift: 0 6px 28px rgba(107, 62, 26, 0.13);
+  --shadow-amber: 0 4px 20px rgba(232, 135, 10, 0.2);
+
+  /* Legacy aliases */
+  --background: var(--bg-base);
+  --foreground: var(--text-primary);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-background: var(--bg-base);
+  --color-foreground: var(--text-primary);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
 html {
   scroll-behavior: smooth;
+  background: var(--bg-base);
 }
 
 body {
-  background: linear-gradient(130deg, #fffaf3 0%, #fce6c6 40%, #f9dec0 100%);
-  color: var(--foreground);
+  background: var(--bg-base);
+  background-image:
+    radial-gradient(
+      ellipse 100% 45% at 50% 0%,
+      rgba(252, 216, 138, 0.26) 0%,
+      transparent 65%
+    ),
+    radial-gradient(
+      ellipse 55% 35% at 100% 100%,
+      rgba(232, 135, 10, 0.09) 0%,
+      transparent 60%
+    );
+  color: var(--text-primary);
+  min-height: 100vh;
 }
 
 * {
@@ -30,15 +88,33 @@ h1,
 h2,
 h3,
 h4 {
-  color: #1f1a14;
+  color: var(--text-primary);
 }
 
 a {
-  color: #c28a52;
+  color: var(--amber-500);
+}
+a:hover {
+  color: var(--amber-400);
 }
 
-a:hover {
-  color: #bb6f2f;
+::selection {
+  background: rgba(232, 135, 10, 0.2);
+  color: var(--brown-500);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--amber-100);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--amber-200);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--amber-400);
 }
 
 @keyframes slide-up {
@@ -51,7 +127,49 @@ a:hover {
     transform: translateY(0);
   }
 }
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 
 .banner-slide-animation {
   animation: slide-up 0.7s ease-out;
+}
+
+.nav-bg {
+  background: rgba(253, 248, 241, 0.95);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.card-bg {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-card);
+}
+.card-bg:hover {
+  border-color: var(--border-accent);
+  box-shadow: var(--shadow-amber);
+}
+
+.btn-amber {
+  background: var(--amber-400);
+  color: var(--text-inverse);
+  font-weight: 700;
+}
+.btn-amber:hover {
+  background: var(--amber-500);
+}
+
+.btn-light {
+  background: var(--bg-elevated);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-medium);
+}
+.btn-light:hover {
+  background: var(--bg-muted);
 }

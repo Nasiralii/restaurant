@@ -76,8 +76,8 @@ export const translations: Record<Language, Translation> = {
         name: "موكا",
         description: "قهوة مع غنى الشوكولاتة.",
       },
-      flatwhite: {
-        name: "وايت أبيض",
+      flatWhite: {
+        name: "وايت فلات",
         description: "قهوة رغوية دقيقة.",
       },
       croissant: {
@@ -85,7 +85,7 @@ export const translations: Record<Language, Translation> = {
         description: "معجنات زبدية متفتتة، مخبوزة طازجة.",
       },
       cheesecake: {
-        name: "جبن كيك",
+        name: "تشيز كيك",
         description: "حلوى كلاسيكية كريمية وناعمة.",
       },
       brownie: {
@@ -96,11 +96,11 @@ export const translations: Record<Language, Translation> = {
         name: "تيراميسو",
         description: "حلوى متعددة الطبقات بنكهة القهوة.",
       },
-      cinnamonroll: {
+      cinnamonRoll: {
         name: "لفيفة القرفة",
         description: "معجنات حلوة حلزونية بالقرفة.",
       },
-      icedtea: {
+      icedTea: {
         name: "شاي مثلج",
         description: "شاي منعش بارد التخمير.",
       },
@@ -112,11 +112,11 @@ export const translations: Record<Language, Translation> = {
         name: "سموثي",
         description: "فواكه طازجة مخلوطة.",
       },
-      hotchocolate: {
+      hotChocolate: {
         name: "شوكولاتة ساخنة",
         description: "كاكاو دافئ مع رغوة الحليب.",
       },
-      freshjuice: {
+      freshJuice: {
         name: "عصير طازج",
         description: "عصير موسمي معصور على البارد.",
       },
@@ -240,32 +240,32 @@ export const translations: Record<Language, Translation> = {
         description: "Rich chocolate fudge brownie.",
       },
       tiramisu: {
-        name: "تيراميسو",
-        description: "حلوى متعددة الطبقات بنكهة القهوة.",
+        name: "Tiramisu",
+        description: "Coffee-flavored layered dessert.",
       },
       cinnamonRoll: {
-        name: "لفيفة القرفة",
-        description: "معجنات حلوة حلزونية بالقرفة.",
+        name: "Cinnamon Roll",
+        description: "Sweet cinnamon swirl pastry.",
       },
       icedTea: {
-        name: "شاي مثلج",
-        description: "شاي منعش بارد التخمير.",
+        name: "Iced Tea",
+        description: "Cold brewed refreshing tea.",
       },
       lemonade: {
-        name: "ليمونادة",
-        description: "مشروب حمضيات طازج، حلو خفيف.",
+        name: "Lemonade",
+        description: "Fresh citrus drink, lightly sweet.",
       },
       smoothie: {
-        name: "سموثي",
-        description: "فواكه طازجة مخلوطة.",
+        name: "Smoothie",
+        description: "Blended fresh fruits.",
       },
       hotChocolate: {
-        name: "شوكولاتة ساخنة",
-        description: "كاكاو دافئ مع رغوة الحليب.",
+        name: "Hot Chocolate",
+        description: "Warm cocoa with milk foam.",
       },
       freshJuice: {
-        name: "عصير طازج",
-        description: "عصير موسمي معصور على البارد.",
+        name: "Fresh Juice",
+        description: "Cold pressed seasonal juice.",
       },
     },
     qrModal: {
@@ -309,7 +309,6 @@ export function getNestedValue(obj: Translation, path: string): string {
     if (current && typeof current === "object" && key in current) {
       current = current[key] as string | Translation;
     } else {
-      // Return the original path if key not found, not the path itself
       return path;
     }
   }

@@ -12,21 +12,27 @@ export function TopNav() {
   const { t } = useLanguage();
 
   const menuItems = [
-    { href: "#coffee", label: t('nav.coffee') },
-    { href: "#desserts", label: t('nav.desserts') },
-    { href: "#drinks", label: t('nav.drinks') },
-    { href: "#order", label: t('nav.order') },
+    { href: "#coffee",   label: t("nav.coffee") },
+    { href: "#desserts", label: t("nav.desserts") },
+    { href: "#drinks",   label: t("nav.drinks") },
+    { href: "#order",    label: t("nav.order") },
   ];
 
-  // 🔥 Lock scroll when menu opens
   useEffect(() => {
-    document.body.style.overflow = mobileMenuOpen ? "hidden" : "auto";
+    document.body.style.overflow = mobileMenuOpen ? "hidden" : "";
   }, [mobileMenuOpen]);
 
   return (
     <>
-      {/* NAVBAR */}
-      <div className="sticky top-0 z-50 w-full border-b border-black/10 bg-linear-to-r from-[#fca311]/90 via-[#f5e1a4]/90 to-[#f27935]/95 px-4 py-4 backdrop-blur-sm sm:px-6 lg:px-10 xl:px-16">
+      <div
+        className="sticky top-0 z-50 w-full px-4 py-3 sm:px-6 lg:px-10 xl:px-16"
+        style={{
+          background: "rgba(253, 248, 241, 0.96)",
+          backdropFilter: "blur(18px)",
+          borderBottom: "1px solid var(--border-subtle)",
+          boxShadow: "0 1px 0 rgba(168,119,61,0.08)",
+        }}
+      >
         <div className="w-full max-w-6xl mx-auto flex items-center justify-between">
 
           {/* LOGO */}
@@ -37,21 +43,42 @@ export function TopNav() {
               window.scrollTo({ top: 0, behavior: "smooth" });
               setMobileMenuOpen(false);
             }}
-            className="flex items-center gap-2 font-semibold text-black"
+            className="flex items-center gap-2.5 font-semibold"
           >
-            <span className="grid h-8 w-8 place-items-center rounded-full bg-[#1f1a14] text-white">
+            <span
+              className="grid h-8 w-8 place-items-center rounded-full text-sm font-bold"
+              style={{
+                background: "linear-gradient(135deg, var(--amber-300), var(--amber-400))",
+                color: "var(--text-inverse)",
+                boxShadow: "0 2px 10px rgba(232,135,10,0.30)",
+              }}
+            >
               B
             </span>
-            {t('home.brand')}
+            <span
+              className="text-sm font-bold"
+              style={{ color: "var(--text-primary)" }}
+            >
+              {t("home.brand")}
+            </span>
           </a>
 
-          {/* DESKTOP MENU (Tablet + Desktop) */}
-          <nav className="hidden md:flex items-center gap-2">
+          {/* DESKTOP NAV */}
+          <nav className="hidden md:flex items-center gap-0.5">
             {menuItems.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
-                className="rounded-full px-4 py-2 text-sm font-semibold text-black hover:bg-black/10 transition"
+                className="rounded-full px-4 py-2 text-sm font-medium transition-all duration-200"
+                style={{ color: "var(--text-secondary)" }}
+                onMouseEnter={e => {
+                  (e.currentTarget as HTMLAnchorElement).style.color = "var(--amber-600)";
+                  (e.currentTarget as HTMLAnchorElement).style.background = "var(--bg-elevated)";
+                }}
+                onMouseLeave={e => {
+                  (e.currentTarget as HTMLAnchorElement).style.color = "var(--text-secondary)";
+                  (e.currentTarget as HTMLAnchorElement).style.background = "transparent";
+                }}
               >
                 {item.label}
               </a>
@@ -60,22 +87,30 @@ export function TopNav() {
 
           {/* RIGHT SIDE */}
           <div className="flex items-center gap-2">
-
-            {/* LANGUAGE TOGGLE */}
             <LanguageToggle />
 
-            {/* QR BUTTON */}
             <button
               onClick={() => setOpen(true)}
-              className="flex items-center gap-2 rounded-full bg-[#c28a52] px-4 py-2 text-sm font-semibold text-[#1f1a14] hover:bg-[#d29a63]"
+              className="flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition-all duration-200"
+              style={{
+                background: "linear-gradient(135deg, var(--amber-400), var(--amber-500))",
+                color: "var(--text-inverse)",
+                boxShadow: "0 2px 12px rgba(232,135,10,0.28)",
+              }}
+              onMouseEnter={e => {
+                (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 4px 18px rgba(232,135,10,0.38)";
+              }}
+              onMouseLeave={e => {
+                (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 2px 12px rgba(232,135,10,0.28)";
+              }}
             >
               <QrCode className="h-4 w-4" />
-              {t('nav.qr')}
+              <span className="hidden sm:inline">{t("nav.qr")}</span>
             </button>
 
-            {/* MOBILE MENU BUTTON (ONLY MOBILE) */}
             <button
-              className="md:hidden rounded-full p-2 hover:bg-black/10"
+              className="md:hidden rounded-full p-2 transition"
+              style={{ color: "var(--text-secondary)" }}
               onClick={() => setMobileMenuOpen(true)}
             >
               <Menu className="h-5 w-5" />
@@ -87,36 +122,57 @@ export function TopNav() {
       {/* BACKDROP */}
       {mobileMenuOpen && (
         <div
-          className="fixed inset-0 z-50 bg-black/40"
+          className="fixed inset-0 z-50"
+          style={{ background: "rgba(45,26,8,0.40)", backdropFilter: "blur(4px)" }}
           onClick={() => setMobileMenuOpen(false)}
         />
       )}
 
       {/* MOBILE SIDEBAR */}
       <div
-        className={`fixed top-0 right-0 z-50 h-screen w-full max-w-xs bg-white shadow-2xl transform transition-transform duration-300 md:hidden ${
+        className={`fixed top-0 right-0 z-50 h-screen w-full max-w-xs shadow-2xl transform transition-transform duration-300 md:hidden ${
           mobileMenuOpen ? "translate-x-0" : "translate-x-full"
         }`}
+        style={{
+          background: "var(--bg-surface)",
+          borderLeft: "1px solid var(--border-medium)",
+        }}
       >
-        {/* HEADER */}
-        <div className="flex items-center justify-between border-b p-4">
-          <h2 className="text-lg font-bold text-[#1f1a14]">{t('footer.menu')}</h2>
+        <div
+          className="flex items-center justify-between p-4"
+          style={{ borderBottom: "1px solid var(--border-subtle)" }}
+        >
+          <h2 className="text-base font-bold" style={{ color: "var(--text-primary)" }}>
+            {t("footer.menu")}
+          </h2>
           <button
             onClick={() => setMobileMenuOpen(false)}
-            className="rounded-full p-2 hover:bg-black/10"
+            className="rounded-full p-2 transition"
+            style={{ color: "var(--text-muted)" }}
           >
             <X className="h-5 w-5" />
           </button>
         </div>
 
-        {/* MENU ITEMS */}
-        <nav className="flex flex-col p-3 gap-2">
+        <nav className="flex flex-col p-3 gap-1.5">
           {menuItems.map((item) => (
             <a
               key={item.href}
               href={item.href}
               onClick={() => setMobileMenuOpen(false)}
-              className="rounded-lg bg-[#f7e6cf] px-4 py-3 text-sm font-semibold text-[#3a2f27] hover:bg-[#f2d2a9] transition"
+              className="rounded-xl px-4 py-3 text-sm font-semibold transition-all duration-200"
+              style={{
+                color: "var(--text-secondary)",
+                background: "var(--bg-elevated)",
+              }}
+              onMouseEnter={e => {
+                (e.currentTarget as HTMLAnchorElement).style.color = "var(--amber-600)";
+                (e.currentTarget as HTMLAnchorElement).style.background = "var(--bg-muted)";
+              }}
+              onMouseLeave={e => {
+                (e.currentTarget as HTMLAnchorElement).style.color = "var(--text-secondary)";
+                (e.currentTarget as HTMLAnchorElement).style.background = "var(--bg-elevated)";
+              }}
             >
               {item.label}
             </a>
@@ -124,7 +180,6 @@ export function TopNav() {
         </nav>
       </div>
 
-      {/* QR MODAL */}
       <QrModal open={open} onClose={() => setOpen(false)} />
     </>
   );

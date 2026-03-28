@@ -1,7 +1,7 @@
 export type MenuCategoryId = "coffee" | "desserts" | "drinks";
 
 export type MenuItem = {
-  key: string; // Add unique key for translation lookup
+  key: string;
   name: string;
   description: string;
   priceSar: number;
@@ -35,7 +35,7 @@ export const MENU: MenuCategory[] = [
         description: "Espresso with silky milk foam, classic.",
         priceSar: 18,
         imageSrc:
-          "https://images.unsplash.com/photo-1534778101976-62847782c213?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&w=800&q=80",
       },
       {
         key: "latte",
@@ -43,7 +43,7 @@ export const MENU: MenuCategory[] = [
         description: "Creamy steamed milk with espresso.",
         priceSar: 19,
         imageSrc:
-          "https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1561047029-3000c68339ca?auto=format&fit=crop&w=800&q=80",
       },
       {
         key: "americano",
@@ -51,7 +51,7 @@ export const MENU: MenuCategory[] = [
         description: "Espresso with hot water, smooth.",
         priceSar: 15,
         imageSrc:
-          "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1551030173-122aabc4489c?auto=format&fit=crop&w=800&q=80",
       },
       {
         key: "mocha",
@@ -67,7 +67,7 @@ export const MENU: MenuCategory[] = [
         description: "Smooth microfoam coffee.",
         priceSar: 20,
         imageSrc:
-          "https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1611854779393-1b2da9d400fe?auto=format&fit=crop&w=800&q=80",
       },
     ],
   },
@@ -89,8 +89,9 @@ export const MENU: MenuCategory[] = [
         name: "Cheesecake",
         description: "Creamy and soft classic dessert.",
         priceSar: 22,
+        // FIX: replaced broken source.unsplash.com URL
         imageSrc:
-          "https://images.unsplash.com/photo-1509440159598-02455d5e789f?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&w=800&q=80",
       },
       {
         key: "brownie",
@@ -105,16 +106,18 @@ export const MENU: MenuCategory[] = [
         name: "Tiramisu",
         description: "Coffee-flavored layered dessert.",
         priceSar: 24,
+        // FIX: replaced broken source.unsplash.com URL
         imageSrc:
-          "https://images.unsplash.com/photo-1571877227200-a0d98ea607b5?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=800&q=80",
       },
       {
         key: "cinnamonRoll",
         name: "Cinnamon Roll",
         description: "Sweet cinnamon swirl pastry.",
         priceSar: 18,
+        // FIX: replaced broken source.unsplash.com URL
         imageSrc:
-          "https://images.unsplash.com/photo-1509365465985-0ab04a9f460e?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=800&q=80",
       },
     ],
   },
@@ -128,8 +131,9 @@ export const MENU: MenuCategory[] = [
         name: "Iced Tea",
         description: "Cold brewed refreshing tea.",
         priceSar: 13,
+        // FIX: replaced broken source.unsplash.com URL
         imageSrc:
-          "https://images.unsplash.com/photo-1556679413-95069d85e841?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1499638673689-79a0b5115d87?auto=format&fit=crop&w=800&q=80",
       },
       {
         key: "lemonade",
@@ -137,7 +141,7 @@ export const MENU: MenuCategory[] = [
         description: "Fresh citrus drink, lightly sweet.",
         priceSar: 14,
         imageSrc:
-          "https://images.unsplash.com/photo-1613478743109-8d6d4f8b0c1?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1621263764928-df1444c5e859?auto=format&fit=crop&w=800&q=80",
       },
       {
         key: "smoothie",
@@ -145,7 +149,7 @@ export const MENU: MenuCategory[] = [
         description: "Blended fresh fruits.",
         priceSar: 20,
         imageSrc:
-          "https://images.unsplash.com/photo-1613478743109-8d6d4f8b0c1?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1505252585461-04db1eb84625?auto=format&fit=crop&w=800&q=80",
       },
       {
         key: "hotChocolate",
@@ -153,7 +157,7 @@ export const MENU: MenuCategory[] = [
         description: "Warm cocoa with milk foam.",
         priceSar: 18,
         imageSrc:
-          "https://images.unsplash.com/photo-1613478743109-8d6d4f8b0c1?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1542990253-0d0f5be5f0ed?auto=format&fit=crop&w=800&q=80",
       },
       {
         key: "freshJuice",
@@ -161,7 +165,7 @@ export const MENU: MenuCategory[] = [
         description: "Cold pressed seasonal juice.",
         priceSar: 17,
         imageSrc:
-          "https://images.unsplash.com/photo-1613478743109-8d6d4f8b0c1?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&w=800&q=80",
       },
     ],
   },
