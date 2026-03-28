@@ -104,7 +104,7 @@ export function PageContent() {
           }}
         />
 
-        <div className="w-full container mx-auto px-4 py-16 sm:px-6 lg:px-10 xl:px-16">
+        <div className="w-full container mx-auto px-4 py-5 sm:px-6 lg:px-10 xl:px-16">
           <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
 
             {/* Brand */}
@@ -273,14 +273,14 @@ export function PageContent() {
 
           {/* Bottom bar */}
           <div
-            className="mt-12 pt-6 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between text-xs"
+            className="mt-12 pt-6 flex flex-col gap-2 text-center sm:flex-row sm:items-center sm:justify-between text-xs"
             style={{
               borderTop: "1px solid var(--border-subtle)",
               color: "var(--text-muted)",
             }}
           >
             <p>© {new Date().getFullYear()} {t("home.brand")}. {t("footer.rights")}</p>
-            <div className="flex gap-4">
+            <div className="flex gap-4 justify-center sm:justify-end">
               {[t("footer.privacy"), t("footer.terms")].map((label) => (
                 <a
                   key={label}

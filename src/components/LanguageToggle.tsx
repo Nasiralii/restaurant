@@ -9,7 +9,7 @@ export function LanguageToggle() {
   return (
     <button
       onClick={() => setLanguage(language === "ar" ? "en" : "ar")}
-      className="flex items-center gap-2 rounded-full px-3 py-2 text-sm font-semibold transition-all duration-200"
+      className="flex items-center gap-2 rounded-full cursor-pointer px-3 py-2 text-sm font-semibold transition-all duration-200"
       style={{
         background: "var(--bg-elevated)",
         border: "1px solid var(--border-medium)",

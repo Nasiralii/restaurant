@@ -25,7 +25,7 @@ export function TopNav() {
   return (
     <>
       <div
-        className="sticky top-0 z-50 w-full px-4 py-3 sm:px-6 lg:px-10 xl:px-16"
+        className="sticky top-0 z-50 w-full py-3 sm:px-6 lg:px-10 xl:px-16"
         style={{
           background: "rgba(253, 248, 241, 0.96)",
           backdropFilter: "blur(18px)",
@@ -91,7 +91,7 @@ export function TopNav() {
 
             <button
               onClick={() => setOpen(true)}
-              className="flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition-all duration-200"
+              className="flex items-center gap-2 cursor-pointer rounded-full px-4 py-2 text-sm font-semibold transition-all duration-200"
               style={{
                 background: "linear-gradient(135deg, var(--amber-400), var(--amber-500))",
                 color: "var(--text-inverse)",
@@ -109,7 +109,7 @@ export function TopNav() {
             </button>
 
             <button
-              className="md:hidden rounded-full p-2 transition"
+              className="md:hidden rounded-full cursor-pointer p-2 transition"
               style={{ color: "var(--text-secondary)" }}
               onClick={() => setMobileMenuOpen(true)}
             >
@@ -147,7 +147,7 @@ export function TopNav() {
           </h2>
           <button
             onClick={() => setMobileMenuOpen(false)}
-            className="rounded-full p-2 transition"
+            className="rounded-full p-2 transition cursor-pointer"
             style={{ color: "var(--text-muted)" }}
           >
             <X className="h-5 w-5" />
