@@ -35,7 +35,7 @@ export function MenuCard({ item }: { item: MenuItem }) {
         className="relative overflow-hidden"
         style={{ background: "var(--bg-elevated)" }}
       >
-        <div className="relative h-44 w-full">
+        <div className="relative h-56 w-full">
           <Image
             src={item.imageSrc}
             alt={getItemTranslation("name") + " image"}
@@ -85,7 +85,7 @@ export function MenuCard({ item }: { item: MenuItem }) {
         <div className="mt-3 overflow-hidden">
           <a
             href="#order"
-            className="inline-flex translate-y-2 items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold opacity-0 transition duration-300 ease-out group-hover:translate-y-0 group-hover:opacity-100 focus-visible:translate-y-0 focus-visible:opacity-100"
+            className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition duration-300 ease-out"
             style={{
               background: "linear-gradient(135deg, var(--amber-400), var(--amber-500))",
               color: "var(--text-inverse)",
