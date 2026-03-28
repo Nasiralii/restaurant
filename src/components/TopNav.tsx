@@ -33,7 +33,7 @@ export function TopNav() {
           boxShadow: "0 1px 0 rgba(168,119,61,0.08)",
         }}
       >
-        <div className="w-full max-w-6xl mx-auto flex items-center justify-between">
+        <div className="w-full container sm:px-6 lg:px-10 xl:px-16 px-4 mx-auto flex items-center justify-between">
 
           {/* LOGO */}
           <a

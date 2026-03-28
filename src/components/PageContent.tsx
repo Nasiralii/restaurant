@@ -30,7 +30,7 @@ export function PageContent() {
         </header>
 
         {/* ── MENU SECTIONS ── */}
-        <div className="mt-12 grid gap-14 container mx-auto px-4 sm:px-6 lg:px-10">
+        <div className="mt-12 grid gap-14 container mx-auto px-4 sm:px-6 lg:px-10 xl:px-16">
           {MENU.map((category, idx) => (
             <section
               key={category.id}
@@ -104,7 +104,7 @@ export function PageContent() {
           }}
         />
 
-        <div className="w-full max-w-6xl mx-auto px-4 py-16 sm:px-6 lg:px-10 xl:px-16">
+        <div className="w-full container mx-auto px-4 py-16 sm:px-6 lg:px-10 xl:px-16">
           <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
 
             {/* Brand */}
