@@ -13,8 +13,13 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  // Force Arabic for testing
-  const [language, setLanguageState] = useState<Language>('ar');
+  const [language, setLanguageState] = useState<Language>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('language') as Language | null;
+      return saved || 'ar';
+    }
+    return 'ar';
+  });
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);

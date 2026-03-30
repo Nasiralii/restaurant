@@ -154,20 +154,6 @@ export function BannerSlider() {
           >
             {t("nav.viewMenu")}
           </Link>
-
-          {/* Secondary — frosted warm white */}
-          <Link
-            href="#order"
-            className="rounded-full px-6 py-2.5 text-sm font-bold transition-all duration-200"
-            style={{
-              background: "rgba(253,248,241,0.14)",
-              border: "1px solid rgba(253,248,241,0.35)",
-              color: "#fdf8f1",
-              backdropFilter: "blur(10px)",
-            }}
-          >
-            {t("nav.order")}
-          </Link>
         </div>
       </div>
 

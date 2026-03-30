@@ -1,16 +1,46 @@
 import Image from "next/image";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ShoppingBag } from "lucide-react";
 import type { MenuItem } from "@/lib/menu";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useCart } from "@/contexts/CartContext";
+import { useToast } from "@/contexts/ToastContext";
+import { formatPrice } from "@/lib/saudi-utils";
 
 export function MenuCard({ item }: { item: MenuItem }) {
   const { t } = useLanguage();
+  const { items, addItem, updateQuantity, removeItem, openCart } = useCart();
+  const { showToast } = useToast();
 
   const getItemTranslation = (field: "name" | "description") => {
     if (!item.key) return item[field];
     const translation = t(`items.${item.key}.${field}`);
     if (translation === `items.${item.key}.${field}`) return item[field];
     return translation;
+  };
+
+  // Find if item is already in cart
+  const cartItem = items.find(cartItem => cartItem.item.key === item.key);
+  const quantityInCart = cartItem?.quantity || 0;
+
+  const handleOrderClick = () => {
+    if (quantityInCart > 0) {
+      openCart();
+    } else {
+      addItem(item, 1, true); // Add item and open cart
+    }
+  };
+
+  const handleAddToCart = () => {
+    // Only add item to cart, don't open sidebar
+    if (quantityInCart > 0) {
+      updateQuantity(item.key, quantityInCart + 1);
+      // Show toast for additional item
+      showToast(`${getItemTranslation("name")} added to cart!`);
+    } else {
+      addItem(item, 1, false); // Add item without opening cart
+      // Show toast for first item
+      showToast(`${getItemTranslation("name")} added to cart!`);
+    }
   };
 
   return (
@@ -61,7 +91,7 @@ export function MenuCard({ item }: { item: MenuItem }) {
               backdropFilter: "blur(6px)",
             }}
           >
-            {item.priceSar} SAR
+            {formatPrice(item.priceSar)}
           </div>
         </div>
       </div>
@@ -81,21 +111,73 @@ export function MenuCard({ item }: { item: MenuItem }) {
           {getItemTranslation("description")}
         </p>
 
-        {/* Order button — slides up on hover */}
-        <div className="mt-3 overflow-hidden">
-          <a
-            href="#order"
-            className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition duration-300 ease-out"
-            style={{
-              background: "linear-gradient(135deg, var(--amber-400), var(--amber-500))",
-              color: "var(--text-inverse)",
-              boxShadow: "0 3px 12px rgba(232,135,10,0.30)",
-            }}
-            aria-label={`Order ${getItemTranslation("name")}`}
-          >
-            {t("nav.order")}
-            <ArrowUpRight className="h-4 w-4" />
-          </a>
+        {/* Order buttons */}
+        <div className="mt-3">
+          {quantityInCart > 0 ? (
+            // Original buttons when item is in cart
+            <div className="flex gap-2">
+              {/* Original Add to Cart Button - no changes */}
+              <button
+                onClick={handleAddToCart}
+                className="flex-1 inline-flex items-center justify-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition duration-300 ease-out cursor-pointer"
+                style={{
+                  background: "linear-gradient(135deg, var(--amber-400), var(--amber-500))",
+                  color: "var(--text-inverse)",
+                  boxShadow: "0 3px 12px rgba(232,135,10,0.30)",
+                }}
+                aria-label={`Add ${getItemTranslation("name")} to cart`}
+              >
+                <ShoppingBag className="h-4 w-4" />
+                {t('cart.addToCart')}
+              </button>
+              
+              {/* Original Order Now Button */}
+              <button
+                onClick={handleOrderClick}
+                className="flex-1 inline-flex items-center justify-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition duration-300 ease-out text-white cursor-pointer"
+                style={{
+                  background: "linear-gradient(135deg, #10b981, #059669)",
+                  boxShadow: "0 3px 12px rgba(16,185,129,0.30)",
+                }}
+                aria-label={`Order ${getItemTranslation("name")}`}
+              >
+                {t("nav.order")}
+                <ArrowUpRight className="h-4 w-4" />
+              </button>
+            </div>
+          ) : (
+            // Original Add to Cart and Order Now buttons in a row
+            <div className="flex gap-2">
+              {/* Add to Cart Button */}
+              <button
+                onClick={handleAddToCart}
+                className="flex-1 inline-flex items-center justify-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition duration-300 ease-out cursor-pointer"
+                style={{
+                  background: "linear-gradient(135deg, var(--amber-400), var(--amber-500))",
+                  color: "var(--text-inverse)",
+                  boxShadow: "0 3px 12px rgba(232,135,10,0.30)",
+                }}
+                aria-label={`Add ${getItemTranslation("name")} to cart`}
+              >
+                <ShoppingBag className="h-4 w-4" />
+                {t('cart.addToCart')}
+              </button>
+              
+              {/* Order Now Button */}
+              <button
+                onClick={handleOrderClick}
+                className="flex-1 inline-flex items-center justify-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition duration-300 ease-out text-white cursor-pointer"
+                style={{
+                  background: "linear-gradient(135deg, #10b981, #059669)",
+                  boxShadow: "0 3px 12px rgba(16,185,129,0.30)",
+                }}
+                aria-label={`Order ${getItemTranslation("name")}`}
+              >
+                {t("nav.order")}
+                <ArrowUpRight className="h-4 w-4" />
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </article>

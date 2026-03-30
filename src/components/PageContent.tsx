@@ -1,11 +1,15 @@
 "use client";
 
 import { MenuCard } from "@/components/MenuCard";
-import { BannerSlider } from "@/components/BannerSlider";
+import { OrderSidebar } from "@/components/OrderSidebar";
+import { FloatingCartButton } from "@/components/FloatingCartButton";
+import { Toast } from "@/components/Toast";
 import { TopNav } from "@/components/TopNav";
+import { BannerSlider } from "@/components/BannerSlider";
 import { MENU, type MenuCategoryId } from "@/lib/menu";
 import { Coffee, CupSoda, Dessert, MapPin, Phone } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useToast } from "@/contexts/ToastContext";
 
 function iconForCategory(id: MenuCategoryId) {
   switch (id) {
@@ -16,7 +20,8 @@ function iconForCategory(id: MenuCategoryId) {
 }
 
 export function PageContent() {
-  const { t } = useLanguage();
+  const { t, isRTL } = useLanguage();
+  const { toastMessage, isToastVisible, hideToast } = useToast();
 
   return (
     <>
@@ -355,6 +360,17 @@ export function PageContent() {
           </div>
         </div>
       </footer>
+      
+      {/* Order Components */}
+      <OrderSidebar />
+      <FloatingCartButton />
+      
+      {/* Toast Notification */}
+      <Toast 
+        message={toastMessage} 
+        isVisible={isToastVisible} 
+        onClose={hideToast} 
+      />
     </>
   );
 }

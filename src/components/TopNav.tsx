@@ -15,7 +15,6 @@ export function TopNav() {
     { href: "#coffee",   label: t("nav.coffee") },
     { href: "#desserts", label: t("nav.desserts") },
     { href: "#drinks",   label: t("nav.drinks") },
-    { href: "#order",    label: t("nav.order") },
   ];
 
   useEffect(() => {
