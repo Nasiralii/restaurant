@@ -216,6 +216,7 @@ export default function AnalyticsPage() {
     )
   }
 
+
   if (!data) {
     return (
       <div className="text-center py-12">
@@ -237,7 +238,7 @@ export default function AnalyticsPage() {
           <select
             value={dateRange}
             onChange={(e) => setDateRange(e.target.value as any)}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+            className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-1 focus:ring-amber-500 focus:border-transparent"
           >
             <option value="7days">آخر 7 أيام</option>
             <option value="30days">آخر 30 يوم</option>
