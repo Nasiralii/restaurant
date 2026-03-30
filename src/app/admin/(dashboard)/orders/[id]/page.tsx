@@ -41,7 +41,9 @@ export default function OrderDetailPage() {
       )
       .subscribe()
 
-    return () => subscription.unsubscribe()
+    return () => {
+      subscription.unsubscribe()
+    }
   }, [orderId])
 
   const fetchOrderDetails = async () => {

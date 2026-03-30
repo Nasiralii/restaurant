@@ -360,7 +360,7 @@ export default function AnalyticsPage() {
                 cx="50%"
                 cy="50%"
                 labelLine={false}
-                label={({ type, percentage }) => `${type}: ${percentage.toFixed(1)}%`}
+                label={({ payload }) => `${payload?.type}: ${payload?.percentage?.toFixed(1)}%`}
                 outerRadius={80}
                 fill="#8884d8"
                 dataKey="count"

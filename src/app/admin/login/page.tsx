@@ -30,7 +30,7 @@ export default function AdminLogin() {
         return
       }
 
-      if (!data.user) {
+      if (!data || !data.user) {
         console.error('No user in response')
         setError('فشل تسجيل الدخول')
         return

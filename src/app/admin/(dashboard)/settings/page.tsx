@@ -2,12 +2,9 @@
 
 import { useState, useEffect } from 'react'
 import { supabase, AdminUser } from '@/lib/supabase'
-import { requireSuperAdmin } from '@/lib/admin-auth'
 import { 
-  Settings, 
   Users, 
   Plus, 
-  Edit, 
   Trash2, 
   Eye, 
   EyeOff,
@@ -424,7 +421,7 @@ export default function SettingsPage() {
             />
             <select
               value={newAdmin.role}
-              onChange={(e) => setNewAdmin(prev => ({ ...prev, role: e.target.value as any }))}
+              onChange={(e) => setNewAdmin(prev => ({ ...prev, role: e.target.value as 'super_admin' | 'admin' | 'staff' }))}
               className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
             >
               <option value="staff">موظف</option>
