@@ -6,6 +6,7 @@ import { X, Plus, Minus, Trash2, ShoppingBag, MapPin, Phone, Truck, AlertCircle 
 import { useCart } from '@/contexts/CartContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { formatPrice, validateSaudiPhone } from '@/lib/saudi-utils';
+import { supabase } from '@/lib/supabase';
 import type { MenuItem } from '@/lib/menu';
 
 export function OrderSidebar() {
@@ -199,6 +200,7 @@ function CheckoutModal({ onClose }: { onClose: () => void }) {
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [orderNumber, setOrderNumber] = useState('');
   const [phoneError, setPhoneError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     customerName: '',
     phone: '',
@@ -227,7 +229,7 @@ function CheckoutModal({ onClose }: { onClose: () => void }) {
     if (phoneError) validatePhone(phone);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     // Validate phone
@@ -235,10 +237,57 @@ function CheckoutModal({ onClose }: { onClose: () => void }) {
       return;
     }
     
-    // Generate random order number
-    const orderNum = Math.floor(Math.random() * 9000) + 1000;
-    setOrderNumber(`#${orderNum}`);
-    setShowConfirmation(true);
+    setIsSubmitting(true);
+    
+    try {
+      // Generate order number
+      const orderNum = Math.floor(Math.random() * 900000) + 100000;
+      
+      // Create order in database
+      const { data: orderData, error: orderError } = await supabase
+        .from('orders')
+        .insert({
+          order_number: orderNum,
+          customer_name: formData.customerName || 'عميل',
+          customer_phone: formData.phone,
+          order_type: formData.orderType,
+          delivery_address: formData.orderType === 'delivery' ? formData.address : null,
+          payment_method: formData.paymentMethod,
+          special_instructions: formData.specialInstructions || null,
+          subtotal: getSubtotal(),
+          vat_amount: getVAT(),
+          total_amount: getTotal(),
+          status: 'pending',
+        })
+        .select()
+        .single();
+
+      if (orderError) throw orderError;
+
+      // Create order items
+      const orderItems = items.map(cartItem => ({
+        order_id: orderData.id,
+        product_id: cartItem.item.key,
+        product_name: cartItem.item.name,
+        product_price: cartItem.item.priceSar,
+        quantity: cartItem.quantity,
+        subtotal: cartItem.item.priceSar * cartItem.quantity,
+      }));
+
+      const { error: itemsError } = await supabase
+        .from('order_items')
+        .insert(orderItems);
+
+      if (itemsError) throw itemsError;
+
+      setOrderNumber(`#${orderNum}`);
+      setShowConfirmation(true);
+    } catch (error) {
+      console.error('Error creating order:', error);
+      alert('حدث خطأ أثناء إنشاء الطلب. يرجى المحاولة مرة أخرى.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleConfirmOrder = () => {
@@ -467,9 +516,10 @@ function CheckoutModal({ onClose }: { onClose: () => void }) {
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors font-medium"
+              disabled={isSubmitting}
+              className="w-full py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {t('checkout.confirmOrder')}
+              {isSubmitting ? 'جاري إنشاء الطلب...' : t('checkout.confirmOrder')}
             </button>
           </form>
         </div>

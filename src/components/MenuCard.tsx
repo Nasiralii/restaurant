@@ -67,8 +67,8 @@ export function MenuCard({ item }: { item: MenuItem }) {
       >
         <div className="relative h-56 w-full">
           <Image
-            src={item.imageSrc}
-            alt={getItemTranslation("name") + " image"}
+            src={item?.imageSrc || "/placeholder.png"}
+            alt={(getItemTranslation("name") || "Product") + " image"}
             fill
             sizes="(min-width: 1024px) 320px, (min-width: 640px) 50vw, 100vw"
             className="object-cover transition duration-500 ease-out group-hover:scale-105"
@@ -91,7 +91,7 @@ export function MenuCard({ item }: { item: MenuItem }) {
               backdropFilter: "blur(6px)",
             }}
           >
-            {formatPrice(item.priceSar)}
+            {formatPrice(item?.priceSar || 0)}
           </div>
         </div>
       </div>
@@ -102,13 +102,13 @@ export function MenuCard({ item }: { item: MenuItem }) {
           className="text-base font-semibold truncate"
           style={{ color: "var(--text-primary)" }}
         >
-          {getItemTranslation("name")}
+          {getItemTranslation("name") || "منتج"}
         </h3>
         <p
           className="mt-1 text-sm leading-6 flex-1"
           style={{ color: "var(--text-muted)" }}
         >
-          {getItemTranslation("description")}
+          {getItemTranslation("description") || ""}
         </p>
 
         {/* Order buttons */}

@@ -57,6 +57,7 @@ export function TopNav() {
             <span
               className="text-sm font-bold"
               style={{ color: "var(--text-primary)" }}
+              suppressHydrationWarning
             >
               {t("home.brand")}
             </span>
@@ -64,12 +65,13 @@ export function TopNav() {
 
           {/* DESKTOP NAV */}
           <nav className="hidden md:flex items-center gap-0.5">
-            {menuItems.map((item) => (
+            {menuItems?.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
                 className="rounded-full px-4 py-2 text-sm font-medium transition-all duration-200"
                 style={{ color: "var(--text-secondary)" }}
+                suppressHydrationWarning
                 onMouseEnter={e => {
                   (e.currentTarget as HTMLAnchorElement).style.color = "var(--amber-600)";
                   (e.currentTarget as HTMLAnchorElement).style.background = "var(--bg-elevated)";
@@ -104,7 +106,9 @@ export function TopNav() {
               }}
             >
               <QrCode className="h-4 w-4" />
-              <span className="hidden sm:inline">{t("nav.qr")}</span>
+              <span className="hidden sm:inline" suppressHydrationWarning>
+                {t("nav.qr")}
+              </span>
             </button>
 
             <button
@@ -141,7 +145,11 @@ export function TopNav() {
           className="flex items-center justify-between p-4"
           style={{ borderBottom: "1px solid var(--border-subtle)" }}
         >
-          <h2 className="text-base font-bold" style={{ color: "var(--text-primary)" }}>
+          <h2
+            className="text-base font-bold"
+            style={{ color: "var(--text-primary)" }}
+            suppressHydrationWarning
+          >
             {t("footer.menu")}
           </h2>
           <button
@@ -154,7 +162,7 @@ export function TopNav() {
         </div>
 
         <nav className="flex flex-col p-3 gap-1.5">
-          {menuItems.map((item) => (
+          {menuItems?.map((item) => (
             <a
               key={item.href}
               href={item.href}
@@ -164,6 +172,7 @@ export function TopNav() {
                 color: "var(--text-secondary)",
                 background: "var(--bg-elevated)",
               }}
+              suppressHydrationWarning
               onMouseEnter={e => {
                 (e.currentTarget as HTMLAnchorElement).style.color = "var(--amber-600)";
                 (e.currentTarget as HTMLAnchorElement).style.background = "var(--bg-muted)";
