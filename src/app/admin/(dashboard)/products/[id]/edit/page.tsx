@@ -1,14 +1,18 @@
 'use client'
 
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
-import { supabase } from '@/lib/supabase'
+import { useState, useEffect } from 'react'
+import { useRouter, useParams } from 'next/navigation'
+import { supabase, Product } from '@/lib/supabase'
 import { uploadToCloudinary } from '@/lib/cloudinary'
 import { ArrowLeft, X, Image as ImageIcon } from 'lucide-react'
 
-export default function NewProductPage() {
+export default function EditProductPage() {
   const router = useRouter()
+  const params = useParams()
+  const productId = params.id as string
+  
   const [loading, setLoading] = useState(false)
+  const [fetching, setFetching] = useState(true)
   const [imageFile, setImageFile] = useState<File | null>(null)
   const [imagePreview, setImagePreview] = useState<string>('')
   const [formData, setFormData] = useState({
@@ -24,6 +28,41 @@ export default function NewProductPage() {
   })
 
   const categories = ['قهوة / Coffee', 'حلويات / Desserts', 'مشروبات / Drinks']
+
+  useEffect(() => {
+    fetchProduct()
+  }, [productId])
+
+  const fetchProduct = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('products')
+        .select('*')
+        .eq('id', productId)
+        .single()
+
+      if (error) throw error
+
+      if (data) {
+        setFormData({
+          name_ar: data.name_ar || '',
+          name_en: data.name_en || '',
+          description_ar: data.description_ar || '',
+          description_en: data.description_en || '',
+          price: data.price?.toString() || '',
+          category: data.category || 'قهوة',
+          image_url: data.image_url || '',
+          is_available: data.is_available ?? true,
+          sort_order: data.sort_order?.toString() || '0'
+        })
+      }
+    } catch (error) {
+      console.error('Error fetching product:', error)
+      alert('حدث خطأ أثناء تحميل بيانات المنتج')
+    } finally {
+      setFetching(false)
+    }
+  }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target
@@ -88,39 +127,39 @@ export default function NewProductPage() {
         }
       }
 
-      // All fields are now optional - use defaults if not provided
-      const name_ar = formData.name_ar || 'منتج جديد'
-      const description_ar = formData.description_ar || 'وصف المنتج'
-      const category = formData.category || 'قهوة'
-      const price = parseFloat(formData.price) || 0
-      
-      // Use provided image URL or uploaded image
-      const finalImageUrl = imageUrl || formData.image_url || ''
-
-      // Insert product with optional fields
       const { error } = await supabase
         .from('products')
-        .insert({
-          name_ar: name_ar,
+        .update({
+          name_ar: formData.name_ar,
           name_en: formData.name_en || null,
-          description_ar: description_ar,
+          description_ar: formData.description_ar,
           description_en: formData.description_en || null,
-          price: price,
-          category: category,
-          image_url: finalImageUrl,
+          price: parseFloat(formData.price) || 0,
+          category: formData.category,
+          image_url: imageUrl,
           is_available: formData.is_available,
-          sort_order: parseInt(formData.sort_order) || 0
+          sort_order: parseInt(formData.sort_order) || 0,
+          updated_at: new Date().toISOString()
         })
+        .eq('id', productId)
 
       if (error) throw error
 
       router.push('/admin/products')
     } catch (error) {
-      console.error('Error creating product:', error)
-      alert('حدث خطأ أثناء إنشاء المنتج')
+      console.error('Error updating product:', error)
+      alert('حدث خطأ أثناء تحديث المنتج')
     } finally {
       setLoading(false)
     }
+  }
+
+  if (fetching) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-amber-600"></div>
+      </div>
+    )
   }
 
   return (
@@ -137,7 +176,7 @@ export default function NewProductPage() {
       </div>
 
       <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
-        <h1 className="text-2xl font-bold text-gray-900 mb-6">إضافة منتج جديد</h1>
+        <h1 className="text-2xl font-bold text-gray-900 mb-6">تعديل المنتج</h1>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Image Upload */}
@@ -344,7 +383,7 @@ export default function NewProductPage() {
               disabled={loading}
               className="px-6 py-2 bg-amber-600 text-white rounded-lg hover:bg-amber-700 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {loading ? 'جاري الحفظ...' : 'حفظ المنتج'}
+              {loading ? 'جاري الحفظ...' : 'تحديث المنتج'}
             </button>
           </div>
         </form>
