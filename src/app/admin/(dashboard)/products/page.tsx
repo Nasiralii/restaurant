@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { supabase, Product } from '@/lib/supabase'
+import { useLanguage } from '@/contexts/LanguageContext'
 import { 
   Plus, 
   Search, 
@@ -17,6 +18,7 @@ import {
 } from 'lucide-react'
 
 export default function ProductsManagement() {
+  const { t, language } = useLanguage()
   const [products, setProducts] = useState<Product[]>([])
   const [loading, setLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
@@ -65,7 +67,7 @@ export default function ProductsManagement() {
   }
 
   const deleteProduct = async (productId: string) => {
-    if (!confirm('هل أنت متأكد من حذف هذا المنتج؟')) return
+    if (!confirm(t('admin.delete') + '?')) return
 
     try {
       const { error } = await supabase
@@ -97,7 +99,7 @@ export default function ProductsManagement() {
     .map(p => p.category)))]
 
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('ar-SA', {
+    return new Intl.NumberFormat(language === 'ar' ? 'ar-SA' : 'en-US', {
       style: 'currency',
       currency: 'SAR'
     }).format(amount)
@@ -116,15 +118,15 @@ export default function ProductsManagement() {
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">إدارة المنتجات</h1>
-          <p className="text-gray-600 mt-2">إضافة وتعديل وحذف المنتجات</p>
+          <h1 className="text-3xl font-bold text-gray-900">{t('admin.products')}</h1>
+          <p className="text-gray-600 mt-2">{t('admin.addProduct')}</p>
         </div>
         <Link
           href="/admin/products/new"
           className="bg-amber-600 text-white px-4 py-2 rounded-lg hover:bg-amber-700 flex items-center"
         >
           <Plus className="w-5 h-5 ml-2" />
-          إضافة منتج جديد
+          {t('admin.addProduct')}
         </Link>
       </div>
 

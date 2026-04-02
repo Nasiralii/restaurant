@@ -5,6 +5,8 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { AdminAuthClient } from '@/lib/admin-auth-client'
 import { AdminUser } from '@/lib/supabase'
+import { useLanguage } from '@/contexts/LanguageContext'
+import { LanguageToggle } from '@/components/LanguageToggle'
 import { 
   LayoutDashboard, 
   Package, 
@@ -24,6 +26,7 @@ interface AdminNavbarProps {
 export function AdminNavbar({ admin }: AdminNavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const router = useRouter()
+  const { t, isRTL } = useLanguage()
 
   const handleLogout = async () => {
     await AdminAuthClient.signOut()
@@ -31,21 +34,21 @@ export function AdminNavbar({ admin }: AdminNavbarProps) {
   }
 
   const navigation = [
-    { name: 'لوحة التحكم', href: '/admin/dashboard', icon: LayoutDashboard },
-    { name: 'المنتجات', href: '/admin/products', icon: Package },
-    { name: 'الطلبات', href: '/admin/orders', icon: ShoppingCart },
-    { name: 'الإحصائيات', href: '/admin/analytics', icon: BarChart3 },
-    ...(admin?.role === 'super_admin' ? [{ name: 'الإعدادات', href: '/admin/settings', icon: Settings }] : []),
+    { name: t('admin.dashboard'), href: '/admin/dashboard', icon: LayoutDashboard },
+    { name: t('admin.products'), href: '/admin/products', icon: Package },
+    { name: t('admin.orders'), href: '/admin/orders', icon: ShoppingCart },
+    { name: t('admin.analytics'), href: '/admin/analytics', icon: BarChart3 },
+    ...(admin?.role === 'super_admin' ? [{ name: t('admin.settings'), href: '/admin/settings', icon: Settings }] : []),
   ]
 
   return (
-    <nav className="bg-white shadow-lg border-b border-gray-200">
+    <nav className="bg-white shadow-lg border-b border-gray-200" dir={isRTL ? 'rtl' : 'ltr'}>
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link href="/admin/dashboard" className="flex items-center space-x-2 space-x-reverse">
             <Coffee className="w-8 h-8 text-amber-600" />
-            <span className="text-xl font-bold text-gray-900">لوحة الإدارة</span>
+            <span className="text-xl font-bold text-gray-900">{t('admin.adminPanel')}</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -64,6 +67,7 @@ export function AdminNavbar({ admin }: AdminNavbarProps) {
 
           {/* User Menu */}
           <div className="flex items-center space-x-4 space-x-reverse">
+            <LanguageToggle />
             <div className="hidden md:block text-left">
               <div className="text-sm font-medium text-gray-900">{admin?.full_name || admin?.email || 'Admin'}</div>
               <div className="text-xs text-gray-500 capitalize">{admin?.role?.replace('_', ' ') || 'User'}</div>
@@ -72,7 +76,7 @@ export function AdminNavbar({ admin }: AdminNavbarProps) {
             <button
               onClick={handleLogout}
               className="p-2 text-gray-500 hover:text-red-600 transition-colors"
-              title="تسجيل الخروج"
+              title={t('admin.logout')}
             >
               <LogOut className="w-5 h-5" />
             </button>
