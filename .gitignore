@@ -18,8 +18,6 @@ dist/
 .parcel-cache/
 
 # Environment variables
-.env
-.env.*
 
 # IDE
 .vscode/
@@ -44,3 +42,4 @@ coverage/
 *.tgz
 .eslintcache
 .node_repl_history
+config.bat
