@@ -2,9 +2,32 @@
 
 import { Languages } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useEffect, useState } from "react";
 
 export function LanguageToggle() {
   const { language, setLanguage } = useLanguage();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Prevent hydration mismatch by rendering placeholder until mounted
+  if (!mounted) {
+    return (
+      <button
+        className="flex items-center gap-2 rounded-full px-3 py-2 text-sm font-semibold"
+        style={{
+          background: "var(--bg-elevated)",
+          border: "1px solid var(--border-medium)",
+          color: "var(--text-secondary)",
+        }}
+      >
+        <Languages className="h-4 w-4" />
+        <span className="w-8" />
+      </button>
+    );
+  }
 
   return (
     <button

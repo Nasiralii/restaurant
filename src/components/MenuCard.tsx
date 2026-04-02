@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { ArrowUpRight, ShoppingBag } from "lucide-react";
+import { ArrowUpRight, ShoppingBag, ImageIcon } from "lucide-react";
 import type { MenuItem } from "@/lib/menu";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useCart } from "@/contexts/CartContext";
@@ -66,14 +66,20 @@ export function MenuCard({ item }: { item: MenuItem }) {
         style={{ background: "var(--bg-elevated)" }}
       >
         <div className="relative h-56 w-full">
-          <Image
-            src={item?.imageSrc || "/placeholder.png"}
-            alt={(getItemTranslation("name") || "Product") + " image"}
-            fill
-            sizes="(min-width: 1024px) 320px, (min-width: 640px) 50vw, 100vw"
-            className="object-cover transition duration-500 ease-out group-hover:scale-105"
-            priority={false}
-          />
+          {item?.imageSrc ? (
+            <Image
+              src={item.imageSrc}
+              alt={(getItemTranslation("name") || "Product") + " image"}
+              fill
+              sizes="(min-width: 1024px) 320px, (min-width: 640px) 50vw, 100vw"
+              className="object-cover transition duration-500 ease-out group-hover:scale-105"
+              priority={false}
+            />
+          ) : (
+            <div className="flex items-center justify-center h-full bg-gray-100">
+              <ImageIcon className="w-16 h-16 text-gray-300" />
+            </div>
+          )}
           {/* Warm amber overlay on hover */}
           <div
             className="pointer-events-none absolute inset-0 opacity-0 transition duration-300 group-hover:opacity-100"
