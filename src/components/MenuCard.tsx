@@ -68,7 +68,7 @@ export function MenuCard({ item }: { item: MenuItem }) {
         <div className="relative h-56 w-full">
           {item?.imageSrc ? (
             <Image
-              src={item.imageSrc}
+              src={item?.imageSrc}
               alt={(getItemTranslation("name") || "Product") + " image"}
               fill
               sizes="(min-width: 1024px) 320px, (min-width: 640px) 50vw, 100vw"

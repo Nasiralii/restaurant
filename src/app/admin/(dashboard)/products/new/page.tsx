@@ -4,10 +4,12 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 import { uploadToCloudinary } from '@/lib/cloudinary'
+import { useLanguage } from '@/contexts/LanguageContext'
 import { ArrowLeft, X, Image as ImageIcon } from 'lucide-react'
 
 export default function NewProductPage() {
   const router = useRouter()
+  const { t, language } = useLanguage()
   const [loading, setLoading] = useState(false)
   const [imageFile, setImageFile] = useState<File | null>(null)
   const [imagePreview, setImagePreview] = useState<string>('')
@@ -63,12 +65,11 @@ export default function NewProductPage() {
     if (!imageFile) return null
 
     try {
-      // Upload to Cloudinary
       const imageUrl = await uploadToCloudinary(imageFile)
       return imageUrl
     } catch (error) {
       console.error('Image upload failed:', error)
-      alert('فشل رفع الصورة، يرجى المحاولة مرة أخرى')
+      alert(language === 'ar' ? 'فشل رفع الصورة، يرجى المحاولة مرة أخرى' : 'Image upload failed, please try again')
       return null
     }
   }
@@ -89,8 +90,8 @@ export default function NewProductPage() {
       }
 
       // All fields are now optional - use defaults if not provided
-      const name_ar = formData.name_ar || 'منتج جديد'
-      const description_ar = formData.description_ar || 'وصف المنتج'
+      const name_ar = formData.name_ar || (language === 'ar' ? 'منتج جديد' : 'New Product')
+      const description_ar = formData.description_ar || (language === 'ar' ? 'وصف المنتج' : 'Product description')
       const category = formData.category || 'قهوة'
       const price = parseFloat(formData.price) || 0
       
